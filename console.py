@@ -8,23 +8,15 @@ import json
 import importlib
 import cmd
 from models import base_model, storage
-from models.place import Place
-from models.state import State
-from models.city import City
-from models.amenity import Amenity
-from models.review import Review
-from models.user import User
 
 
 class HBNBCommand(cmd.Cmd):
     """
-    This class is the entry point.
+    This class is the entry point
     """
 
     intro = ""
     prompt = "(hbnb) "
-
-    classes = ["BaseModel", "Place", "State", "City", "Amenity", "Review", "User"]
 
     def do_create(self, model_name):
         """
@@ -34,11 +26,10 @@ class HBNBCommand(cmd.Cmd):
 
         if not model_name:
             print("** class name missing **")
-        elif model_name not in self.classes:
+        elif model_name not in dir(base_model):
             print("** class doesn't exist **")
         else:
-            module_name = "models." + model_name.lower()
-            my_model = getattr(importlib.import_module(module_name), model_name)()
+            my_model = getattr(base_model, model_name)()
             my_model.save()
             print(my_model.id)
 
@@ -50,8 +41,8 @@ class HBNBCommand(cmd.Cmd):
 
         args = line.split()
         if not args:
-            print("** class name missing **")
-        elif args[0] not in self.classes:
+            print("** class name missing *")
+        elif args[0] not in dir(base_model):
             print("** class doesn't exist **")
         elif len(args) == 1:
             print("** instance id missing **")
@@ -71,7 +62,7 @@ class HBNBCommand(cmd.Cmd):
         args = line.split()
         if not args:
             print("** class name missing **")
-        elif args[0] not in self.classes:
+        elif args[0] not in dir(base_model):
             print("** class doesn't exist **")
         elif len(args) < 2:
             print("** instance id missing **")
@@ -93,7 +84,7 @@ class HBNBCommand(cmd.Cmd):
         if not args:
             for obj in storage.all().values():
                 print(str(obj))
-        elif args[0] not in self.classes:
+        elif args[0] not in dir(base_model):
             print("** class doesn't exist **")
         else:
             for obj in storage.all().values():
@@ -108,8 +99,8 @@ class HBNBCommand(cmd.Cmd):
 
         args = line.split()
         if not args:
-            print("** class name missing **")
-        elif args[0] not in self.classes:
+            print("** class name missing *")
+        elif args[0] not in dir(base_model):
             print("** class doesn't exist **")
         elif len(args) == 1:
             print("** instance id missing **")
@@ -123,8 +114,9 @@ class HBNBCommand(cmd.Cmd):
                 print("** value missing **")
             else:
                 obj = storage.all()[obj_key]
-                setattr(obj, args[2], args[3].strip('"'))
-                obj.save()
+                if args[2] not in ["id", "created_at", "updated_at"]:
+                    setattr(obj, args[2], args[3])
+                    obj.save()
 
     def do_quit(self, line):
         """

@@ -1,8 +1,13 @@
-# models/base_model.py
+#!/usr/bin/python3
+"""
+This module contains the base model class
+which will be inherited by the child classes.
+"""
 
-from models import storage
+
 import uuid
 from datetime import datetime
+from models import storage
 
 
 class BaseModel:
@@ -12,37 +17,37 @@ class BaseModel:
 
     def __init__(self, *args, **kwargs):
         """
-        Initialize the instance attributes
+        Init the instance attribute
         """
         if kwargs:
-            if '__class__' in kwargs:
+            if kwargs['__class__']:
                 del kwargs['__class__']
             self.set_args(kwargs)
         else:
             self.id = str(uuid.uuid4())
             self.created_at = datetime.now()
             self.updated_at = datetime.now()
-            storage.new(self)
+        storage.new(self)
 
     def __str__(self):
         return "[{}] ({}) {}".format(self.__class__.__name__, self.id, self.__dict__)
 
     def save(self):
         """
-        Save the current object in the file.json
+        save the ccurrent object in the dile.json
         """
         self.updated_at = datetime.now()
         storage.new(self)
         storage.save()
 
+    
     def set_args(self, kwargs):
         """
-        Set the kwargs passed in the __init__ special method
+        set the kwargs passed in the __init__ special method
         """
-        date_format = "%Y-%m-%dT%H:%M:%S.%f"
-        self.id = str(kwargs.get('id', uuid.uuid4()))
-        self.created_at = datetime.strptime(kwargs.get('created_at', datetime.now().strftime(date_format)), date_format)
-        self.updated_at = datetime.strptime(kwargs.get('updated_at', datetime.now().strftime(date_format)), date_format)
+        self.id = str(kwargs['id'])
+        self.created_at = datetime.fromisoformat(kwargs['created_at'])
+        self.updated_at = datetime.fromisoformat(kwargs['updated_at'])
 
     def to_dict(self):
         """
@@ -53,3 +58,8 @@ class BaseModel:
         obj_dict['created_at'] = self.created_at.isoformat()
         obj_dict['updated_at'] = self.updated_at.isoformat()
         return obj_dict
+
+
+
+
+
