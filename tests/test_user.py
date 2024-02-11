@@ -4,10 +4,8 @@ from models.base_model import BaseModel
 
 
 class TestUser(unittest.TestCase):
-    """Test cases for the User class."""
 
     def test_user_creation(self):
-        """Test creating a User instance."""
         user = User()
         self.assertIsInstance(user, User)
         self.assertIsInstance(user, BaseModel)
@@ -20,7 +18,6 @@ class TestUser(unittest.TestCase):
         self.assertEqual(user.last_name, "")
 
     def test_user_attributes(self):
-        """Test setting and getting User attributes."""
         user = User()
         user.email = "badr@example.com"
         user.password = "password123"
@@ -33,7 +30,6 @@ class TestUser(unittest.TestCase):
         self.assertEqual(user.last_name, "alx")
 
     def test_user_to_dict(self):
-        """Test converting User instance to a dictionary."""
         user = User()
         user.email = "badr@example.com"
         user.password = "password123"
@@ -56,7 +52,6 @@ class TestUser(unittest.TestCase):
         self.assertEqual(user_dict, expected_dict)
 
     def test_user_str_representation(self):
-        """Test the string representation of User instance."""
         user = User()
         user.email = "badr@example.com"
         user.password = "password123"
@@ -72,3 +67,4 @@ class TestUser(unittest.TestCase):
 
 if __name__ == '__main__':
     unittest.main()
+

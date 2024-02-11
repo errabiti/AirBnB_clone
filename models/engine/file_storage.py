@@ -1,7 +1,10 @@
-# models/engine/file_storage.py
+#!/usr/bin/python3
+"""
+The file_storage module contains the FileStorage class, which serves as a mechanism for storing data in a JSON file (file.json)
+"""
 
 import json
-from models.base_model import BaseModel
+import importlib
 
 
 class FileStorage:
@@ -26,7 +29,8 @@ class FileStorage:
                 file_items = json.load(f)
                 for obj_id, obj_dict in file_items.items():
                     class_name = obj_dict['__class__']
-                    instance = BaseModel(**obj_dict)
-                    FileStorage.__objects[obj_id] = instance
+                    instance = getattr(importlib.import_module("models.base_model"), class_name)
+                    FileStorage.__objects[obj_id] = instance(**obj_dict)
         except FileNotFoundError:
             pass
+
