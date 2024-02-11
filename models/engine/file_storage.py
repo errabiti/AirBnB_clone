@@ -1,6 +1,7 @@
 #!/usr/bin/python3
 """
-The file_storage module contains the FileStorage class, which serves as a mechanism for storing data in a JSON file (file.json)
+The file_storage module contains the FileStorage class,
+which serves as a mechanism for storing data in a JSON file (file.json)
 """
 
 import json
@@ -10,6 +11,7 @@ import importlib
 class FileStorage:
     __file_path = "file.json"
     __objects = {}
+    __classes = ["BaseModel", "Place", "State", "City", "Amenity", "Review", "User"]  # Include User in the classes list
 
     def all(self):
         return FileStorage.__objects
@@ -29,8 +31,9 @@ class FileStorage:
                 file_items = json.load(f)
                 for obj_id, obj_dict in file_items.items():
                     class_name = obj_dict['__class__']
-                    instance = getattr(importlib.import_module("models.base_model"), class_name)
-                    FileStorage.__objects[obj_id] = instance(**obj_dict)
+                    if class_name in self.__classes:
+                        module_name = "models." + class_name.lower()
+                        instance = getattr(importlib.import_module(module_name), class_name)
+                        FileStorage.__objects[obj_id] = instance(**obj_dict)
         except FileNotFoundError:
             pass
-
