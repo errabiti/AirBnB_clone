@@ -18,13 +18,13 @@ from models.user import User
 
 class HBNBCommand(cmd.Cmd):
     """
-    This class is the entry point
+    This class is the entry point.
     """
 
     intro = ""
     prompt = "(hbnb) "
 
-    classes = ["BaseModel", "Place", "State", "City", "Amenity", "Review", "User"]  # Include User in the classes list
+    classes = ["BaseModel", "Place", "State", "City", "Amenity", "Review", "User"]
 
     def do_create(self, model_name):
         """
@@ -37,7 +37,8 @@ class HBNBCommand(cmd.Cmd):
         elif model_name not in self.classes:
             print("** class doesn't exist **")
         else:
-            my_model = getattr(importlib.import_module("models." + model_name.lower()), model_name)()
+            module_name = "models." + model_name.lower()
+            my_model = getattr(importlib.import_module(module_name), model_name)()
             my_model.save()
             print(my_model.id)
 
@@ -49,7 +50,7 @@ class HBNBCommand(cmd.Cmd):
 
         args = line.split()
         if not args:
-            print("** class name missing *")
+            print("** class name missing **")
         elif args[0] not in self.classes:
             print("** class doesn't exist **")
         elif len(args) == 1:
@@ -107,7 +108,7 @@ class HBNBCommand(cmd.Cmd):
 
         args = line.split()
         if not args:
-            print("** class name missing *")
+            print("** class name missing **")
         elif args[0] not in self.classes:
             print("** class doesn't exist **")
         elif len(args) == 1:
@@ -122,9 +123,8 @@ class HBNBCommand(cmd.Cmd):
                 print("** value missing **")
             else:
                 obj = storage.all()[obj_key]
-                if args[2] not in ["id", "created_at", "updated_at"]:
-                    setattr(obj, args[2], args[3])
-                    obj.save()
+                setattr(obj, args[2], args[3].strip('"'))
+                obj.save()
 
     def do_quit(self, line):
         """
