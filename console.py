@@ -1,6 +1,7 @@
 #!/usr/bin/python3
 """
-The file_storage module contains the FileStorage class, which serves as a mechanism for storing data in a JSON file (file.json)
+The file_storage module contains the FileStorage class,
+which serves as a mechanism for storing data in a JSON file (file.json)
 """
 
 import json
@@ -19,9 +20,8 @@ class HBNBCommand(cmd.Cmd):
 
     def do_create(self, model_name):
         """
-        This method is  responsable of creating a new instance of a the base model and save 
-        the object in a json file
-        Usage <model_name>
+        Create a new instance of a base model and save it to a JSON file.
+        Usage: create <model_name>
         """
 
         if not model_name:
@@ -35,8 +35,8 @@ class HBNBCommand(cmd.Cmd):
 
     def do_show(self, line):
         """
-        Display a specifique object by its key
-        Usage : show <model_name> <id>
+        Display a specific object by its key.
+        Usage: show <model_name> <id>
         """
 
         args = line.split()
@@ -54,6 +54,11 @@ class HBNBCommand(cmd.Cmd):
                 print("** no instance found **")
 
     def do_destroy(self, line):
+        """
+        Destroy an instance based on the class name and id.
+        Usage: destroy <model_name> <id>
+        """
+
         args = line.split()
         if not args:
             print("** class name missing **")
@@ -70,6 +75,11 @@ class HBNBCommand(cmd.Cmd):
                 print("** no instance found **")
 
     def do_all(self, line):
+        """
+        Print all string representations of instances based on the class name.
+        Usage: all <model_name>
+        """
+
         args = line.split()
         if not args:
             for obj in storage.all().values():
@@ -83,7 +93,7 @@ class HBNBCommand(cmd.Cmd):
 
     def do_update(self, line):
         """
-        update a specifique instance attribute 
+        Update a specific instance attribute.
         Usage: update <class name> <id> <attribute name> "<attribute value>"
         """
 
@@ -108,20 +118,18 @@ class HBNBCommand(cmd.Cmd):
                     setattr(obj, args[2], args[3])
                     obj.save()
 
-
-
     def do_quit(self, line):
         """
-        Quit command to exit the program
+        Quit command to exit the program.
         """
         return True
 
     def do_EOF(self, line):
         """
-        exit the program
+        Exit the program.
         """
         return True
 
 
 if __name__ == '__main__':
-	HBNBCommand().cmdloop()
+    HBNBCommand().cmdloop()
