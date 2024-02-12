@@ -1,8 +1,11 @@
 #!/usr/bin/python3
 """
+This module define the class Place.
 """
 
+
 from models import base_model
+
 
 class Place(base_model.BaseModel):
     """

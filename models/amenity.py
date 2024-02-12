@@ -3,6 +3,7 @@
 This module define Amenity class .
 """
 
+
 from models import base_model
 
 

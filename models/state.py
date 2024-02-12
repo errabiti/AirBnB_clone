@@ -11,4 +11,3 @@ class State(base_model.BaseModel):
     """
 
     name = ""
-
