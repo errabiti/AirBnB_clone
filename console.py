@@ -76,7 +76,7 @@ class HBNBCommand(cmd.Cmd):
 
     def do_all(self, line):
         """
-        Display all objects 
+        Display all objects.
         """
 
         args = line.split()
