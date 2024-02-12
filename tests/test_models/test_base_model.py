@@ -2,8 +2,7 @@
 """
 This module has all the test cases for the base model
 """
-
-import models.base_model
+from models import base_model
 import time
 import unittest
 
