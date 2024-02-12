@@ -58,7 +58,7 @@ class FileStorage:
                             if os.path.isfile(os.path.join(path, file_name)):
                                 model_n = file_name[:-3]
                                 model = __import__("models." + model_n,
-                                                   fromlist=[class_name])
+                                                    fromlist=[class_name])
                                 if hasattr(model, class_name):
                                     model = getattr(model, class_name)
                                     break

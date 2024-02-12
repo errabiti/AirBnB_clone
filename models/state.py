@@ -11,3 +11,9 @@ class State(base_model.BaseModel):
     """
 
     name = ""
+
+    def __init__(self, *args, **kwargs):
+        """
+        Init the parent BaseModel
+        """
+        super().__init__(*args, **kwargs)

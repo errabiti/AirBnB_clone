@@ -15,3 +15,9 @@ class Review(base_model.BaseModel):
     place_id = ""
     user_id = ""
     text = ""
+
+    def __init__(self, *args, **kwargs):
+        """
+        Init the parent BaseModel
+        """
+        super().__init__(*args, **kwargs)

@@ -13,3 +13,9 @@ class City(base_model.BaseModel):
 
     state_id = ""
     name = ""
+
+    def __init__(self, *args, **kwargs):
+        """
+        Init the parent BaseModel
+        """
+        super().__init__(*args, **kwargs)
