@@ -1,5 +1,6 @@
 #!/usr/bin/python3
 """
+This modulehas the Test_Amenity class.
 """
 
 
@@ -9,8 +10,15 @@ from models.amenity import Amenity
 
 
 class Test_Amenity(unittest.TestCase):
+    """
+    A test suite for the Amenity class.
+    """
 
     def test_amenity_creation(self):
+        """
+        Test case to ensure correct creation of an Amenity instance.
+        """
+
         amenity = Amenity()
         self.assertIsInstance(amenity, Amenity)
         self.assertTrue(hasattr(amenity, 'id'))
@@ -19,12 +27,21 @@ class Test_Amenity(unittest.TestCase):
         self.assertEqual(amenity.name, "")
 
     def test_amenity_attributes(self):
+        """
+        Test case to ensure correct setting and getting of attributes.
+        """
+
         amenity = Amenity()
         amenity.name = "Pool"
 
         self.assertEqual(amenity.name, "Pool")
 
     def test_amenity_to_dict(self):
+        """
+        Test case to ensure correct conversion of
+        Amenity instance to dictionary.
+        """
+
         amenity = Amenity()
         amenity.name = "Gym"
 
@@ -41,6 +58,10 @@ class Test_Amenity(unittest.TestCase):
         self.assertEqual(amenity_dict, expected_dict)
 
     def test_amenity_str_representation(self):
+        """
+        Test case to ensure correct string representation of Amenity instance.
+        """
+
         amenity = Amenity()
         amenity.name = "Foot"
         str_repr = str(amenity)

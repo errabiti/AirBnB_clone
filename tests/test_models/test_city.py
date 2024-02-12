@@ -1,6 +1,6 @@
 #!/usr/bin/python3
 """
-
+This module define the TestCity Class.
 """
 
 
@@ -11,11 +11,14 @@ from models.base_model import BaseModel
 
 class TestCity(unittest.TestCase):
     """
-    This class is a class that contains all the test cases for the
-    User model
+    Test cases for the City class.
     """
 
     def test_city_creation(self):
+        """
+        Test case to verify the creation of a City instance.
+        """
+
         city = City()
         self.assertIsInstance(city, City)
         self.assertIsInstance(city, BaseModel)
@@ -26,6 +29,10 @@ class TestCity(unittest.TestCase):
         self.assertEqual(city.name, "")
 
     def test_city_attributes(self):
+        """
+        Test case to verify setting and getting of attributes.
+        """
+
         city = City()
         city.state_id = "999"
         city.name = "tiznit"
@@ -34,6 +41,10 @@ class TestCity(unittest.TestCase):
         self.assertEqual(city.name, "tiznit")
 
     def test_city_to_dict(self):
+        """
+        Test case to verify conversion of City instance to dictionary.
+        """
+
         city = City()
         city.state_id = "999"
         city.name = "tiznit"
@@ -51,9 +62,12 @@ class TestCity(unittest.TestCase):
         self.assertEqual(city_dict, expected_dict)
 
     def test_city_str_representation(self):
+        """
+        Test case to verify string representation of City instance.
+        """
+
         city = City()
         city.name = "tiznit"
-
         str_repr = str(city)
         expected_repr = "[City] ({}) {}".format(city.id, city.__dict__)
         self.assertEqual(str_repr, expected_repr)

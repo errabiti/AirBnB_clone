@@ -1,5 +1,6 @@
 #!/usr/bin/puthon3
 """
+This module has the TestUser class.
 """
 
 
@@ -9,8 +10,15 @@ from models.base_model import BaseModel
 
 
 class TestUser(unittest.TestCase):
+    """
+    Test cases for the User class.
+    """
 
     def test_user_creation(self):
+        """
+        Test case to verify the creation of a User instance.
+        """
+
         user = User()
         self.assertIsInstance(user, User)
         self.assertIsInstance(user, BaseModel)
@@ -23,6 +31,10 @@ class TestUser(unittest.TestCase):
         self.assertEqual(user.last_name, "")
 
     def test_user_attributes(self):
+        """
+        Test case to verify setting and getting of attributes.
+        """
+
         user = User()
         user.email = "badr@example.com"
         user.password = "password123"
@@ -35,6 +47,10 @@ class TestUser(unittest.TestCase):
         self.assertEqual(user.last_name, "alx")
 
     def test_user_to_dict(self):
+        """
+        Test case to verify conversion of User instance to dictionary.
+        """
+
         user = User()
         user.email = "badr@example.com"
         user.password = "password123"
@@ -57,6 +73,10 @@ class TestUser(unittest.TestCase):
         self.assertEqual(user_dict, expected_dict)
 
     def test_user_str_representation(self):
+        """
+        Test case to verify string representation of User instance.
+        """
+
         user = User()
         user.email = "badr@example.com"
         user.password = "password123"

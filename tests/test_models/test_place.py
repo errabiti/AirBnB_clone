@@ -1,5 +1,6 @@
 #!/usr/bin/python3
 """
+This module has the TestPlace class.+
 """
 
 
@@ -9,8 +10,15 @@ from models.base_model import BaseModel
 
 
 class TestPlace(unittest.TestCase):
+    """
+    Test cases for the Place class.
+    """
 
     def test_place_creation(self):
+        """
+        Test case to verify the creation of a Place instance.
+        """
+
         place = Place()
         self.assertIsInstance(place, Place)
         self.assertIsInstance(place, BaseModel)
@@ -30,6 +38,10 @@ class TestPlace(unittest.TestCase):
         self.assertEqual(place.amenity_ids, [])
 
     def test_place_attributes(self):
+        """
+        Test case to verify setting and getting of attributes.
+        """
+
         place = Place()
         place.city_id = "123"
         place.user_id = "456"
@@ -56,6 +68,10 @@ class TestPlace(unittest.TestCase):
         self.assertEqual(place.amenity_ids, ["wifi", "kitchen"])
 
     def test_place_to_dict(self):
+        """
+        Test case to verify conversion of Place instance to dictionary.
+        """
+
         place = Place()
         place.city_id = "123"
         place.user_id = "456"
@@ -91,6 +107,10 @@ class TestPlace(unittest.TestCase):
         self.assertEqual(place_dict, expected_dict)
 
     def test_place_str_representation(self):
+        """
+        Test case to verify string representation of Place instance.
+        """
+
         place = Place()
         place.name = "Cozy Apart"
         str_repr = str(place)

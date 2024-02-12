@@ -15,6 +15,10 @@ class TestReview(unittest.TestCase):
     """
 
     def test_review_creation(self):
+        """
+        Test case to verify the creation of a Review instance.
+        """
+
         review = Review()
         self.assertIsInstance(review, Review)
         self.assertIsInstance(review, BaseModel)
@@ -26,6 +30,10 @@ class TestReview(unittest.TestCase):
         self.assertEqual(review.text, "")
 
     def test_review_attributes(self):
+        """
+        Test case to verify setting and getting of attributes.
+        """
+
         review = Review()
         review.place_id = "123"
         review.user_id = "456"
@@ -36,6 +44,10 @@ class TestReview(unittest.TestCase):
         self.assertEqual(review.text, "Great experience")
 
     def test_review_to_dict(self):
+        """
+        Test case to verify conversion of Review instance to dictionary.
+        """
+
         review = Review()
         review.place_id = "123"
         review.user_id = "456"
@@ -52,10 +64,13 @@ class TestReview(unittest.TestCase):
                 'text': 'Great experience',
                 '__class__': 'Review'
         }
-
         self.assertEqual(review_dict, expected_dict)
 
     def test_review_str_representation(self):
+        """
+        Test case to verify string representation of Review instance.
+        """
+
         review = Review()
         review.text = "Great experience"
 
