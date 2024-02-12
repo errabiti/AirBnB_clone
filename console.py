@@ -4,16 +4,10 @@ The file_storage module contains the FileStorage class,
 which serves as a mechanism for storing data in a JSON file (file.json)
 """
 
+
 import json
-import importlib
 import cmd
 from models import base_model, storage
-from models.place import Place
-from models.state import State
-from models.city import City
-from models.amenity import Amenity
-from models.review import Review
-from models.user import User
 
 
 class HBNBCommand(cmd.Cmd):
@@ -24,33 +18,32 @@ class HBNBCommand(cmd.Cmd):
     intro = ""
     prompt = "(hbnb) "
 
-    classes = ["BaseModel", "Place", "State", "City", "Amenity", "Review", "User"]  # Include User in the classes list
-
     def do_create(self, model_name):
         """
-        Create a new instance of a base model and save it to a JSON file.
-        Usage: create <model_name>
+        This method is  responsable of creating a new instance of
+        the base model and save the object in a json file
+        Usage <model_name>
         """
 
         if not model_name:
             print("** class name missing **")
-        elif model_name not in self.classes:
+        elif model_name not in dir(base_model):
             print("** class doesn't exist **")
         else:
-            my_model = getattr(importlib.import_module("models." + model_name.lower()), model_name)()
+            my_model = getattr(base_model, model_name)()
             my_model.save()
             print(my_model.id)
 
     def do_show(self, line):
         """
-        Display a specific object by its key.
-        Usage: show <model_name> <id>
+        Display a specifique object by its key
+        Usage : show <model_name> <id>
         """
 
         args = line.split()
         if not args:
             print("** class name missing *")
-        elif args[0] not in self.classes:
+        elif args[0] not in dir(base_model):
             print("** class doesn't exist **")
         elif len(args) == 1:
             print("** instance id missing **")
@@ -63,14 +56,13 @@ class HBNBCommand(cmd.Cmd):
 
     def do_destroy(self, line):
         """
-        Destroy an instance based on the class name and id.
-        Usage: destroy <model_name> <id>
+        Destroy an object.
         """
 
         args = line.split()
         if not args:
             print("** class name missing **")
-        elif args[0] not in self.classes:
+        elif args[0] not in dir(base_model):
             print("** class doesn't exist **")
         elif len(args) < 2:
             print("** instance id missing **")
@@ -84,15 +76,14 @@ class HBNBCommand(cmd.Cmd):
 
     def do_all(self, line):
         """
-        Print all string representations of instances based on the class name.
-        Usage: all <model_name>
+        Display all objects 
         """
 
         args = line.split()
         if not args:
             for obj in storage.all().values():
                 print(str(obj))
-        elif args[0] not in self.classes:
+        elif args[0] not in dir(base_model):
             print("** class doesn't exist **")
         else:
             for obj in storage.all().values():
@@ -101,14 +92,14 @@ class HBNBCommand(cmd.Cmd):
 
     def do_update(self, line):
         """
-        Update a specific instance attribute.
+        update a specifique instance attribute.
         Usage: update <class name> <id> <attribute name> "<attribute value>"
         """
 
         args = line.split()
         if not args:
             print("** class name missing *")
-        elif args[0] not in self.classes:
+        elif args[0] not in dir(base_model):
             print("** class doesn't exist **")
         elif len(args) == 1:
             print("** instance id missing **")
@@ -128,14 +119,15 @@ class HBNBCommand(cmd.Cmd):
 
     def do_quit(self, line):
         """
-        Quit command to exit the program.
+        Quit command to exit the program
         """
         return True
 
     def do_EOF(self, line):
         """
-        Exit the program.
+        exit the program
         """
+        print()
         return True
 
 

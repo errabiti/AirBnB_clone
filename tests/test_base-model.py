@@ -3,15 +3,18 @@
 This module has all the test cases for the base model
 """
 
-from models import base_model
-import time, unittest
+import models.base_model
+import time
+import unittest
+
 
 class TestBaseModel(unittest.TestCase):
     """
+    This class tesst all methods found in the BaseModel class.
     """
+
     def setUp(self):
         self.base_model = base_model.BaseModel()
-
 
     def test_save(self):
         initial_updated_value = self.base_model.updated_at
@@ -27,4 +30,4 @@ class TestBaseModel(unittest.TestCase):
         for attr_key, attr_value in instance_attr.items():
             if attr_key in ["id", "created_at", "updated_at"]:
                 self.assertTrue(isinstance(attr_value, str),
-                        f"Attribute '{attr_key}' should be a string")
+                                f"Attribute '{attr_key}' should be a string")

@@ -5,7 +5,7 @@ which serves as a mechanism for storing data in a JSON file (file.json)
 """
 
 import json
-import importlib.import_module
+from importlib import import_module
 
 
 class FileStorage:

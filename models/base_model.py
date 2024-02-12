@@ -1,6 +1,7 @@
 #!/usr/bin/python3
 """
-This module contains the base model class which will be inherited by the child classes.
+This module contains the base model class
+which will be inherited by the child classes.
 """
 
 
@@ -8,8 +9,16 @@ import uuid
 from datetime import datetime
 from models import storage
 
+
 class BaseModel:
+    """
+    This class is the base that all other models will extend
+    """
+
     def __init__(self, *args, **kwargs):
+        """
+        Init the instance attribute
+        """
         if kwargs:
             if kwargs['__class__']:
                 del kwargs['__class__']
@@ -25,23 +34,26 @@ class BaseModel:
                                      self.id, self.__dict__)
 
     def save(self):
+        """
+        save the ccurrent object in the dile.json
+        """
         self.updated_at = datetime.now()
         storage.new(self)
         storage.save()
 
     def set_args(self, kwargs):
-            self.id = str(kwargs['id'])
-            self.created_at = datetime.fromisoformat(kwargs['created_at'])
-            self.updated_at = datetime.fromisoformat(kwargs['updated_at'])
+        """
+        set the kwargs passed in the __init__ special method
+        """
+        self.id = str(kwargs['id'])
+        self.created_at = datetime.fromisoformat(kwargs['created_at'])
+        self.updated_at = datetime.fromisoformat(kwargs['updated_at'])
 
     def to_dict(self):
-<<<<<<< HEAD
         """
         Returns a dictionary containing all keys/values
         of __dict__ of the instance.
         """
-=======
->>>>>>> 42cd810b7987a918481a3e5d9dc1481dd42d3570
         obj_dict = self.__dict__.copy()
         obj_dict['__class__'] = self.__class__.__name__
         obj_dict['created_at'] = self.created_at.isoformat()
