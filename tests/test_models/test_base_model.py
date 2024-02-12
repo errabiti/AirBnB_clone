@@ -2,6 +2,8 @@
 """
 This module has all the test cases for the base model
 """
+
+
 from models import base_model
 import time
 import unittest
@@ -48,3 +50,7 @@ class TestBaseModel(unittest.TestCase):
             if attr_key in ["id", "created_at", "updated_at"]:
                 self.assertTrue(isinstance(attr_value, str),
                                 f"Attribute '{attr_key}' should be a string")
+
+
+if __name__ == "__main__":
+    unittest.main()
